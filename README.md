@@ -71,3 +71,7 @@ g++ src/main.cpp -o bin/recomendacao -std=c++11
    - [ ] Implementar o cálculo final de similaridade e ranqueamento de aparelhos.
 
    - [ ] Exportar a lista de recomendações gerada para um arquivo .txt ou .csv de saída.
+
+## Participantes
++ Arthur Medeiros do NAscimento
++ João Rafael Gadelha
