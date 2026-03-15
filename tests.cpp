@@ -6,9 +6,9 @@
 #include <iostream>
 
 typedef struct {
-    int data[50];
+    std::string data[50];
     std::string code[50];
-    int codeProduto[50];
+    std::string codeProduto[50];
     std::string produto[50];
     
 } Clientes;
@@ -16,13 +16,13 @@ typedef struct {
 int main(){
 
     std::vector<std::string> codes;
-    std::vector<int> codeProdutos;
+    std::vector<std::string> codeProdutos;
     std::vector<std::string> produtos;
     std::map<std::string, int> codeIndex;
 
     FILE *arquivo;
     std::string code;
-    int codeProduto;
+    std::string codeProduto;
     std::string produto;
 
     arquivo = fopen("dados_venda_cluster_0.csv", "r");
