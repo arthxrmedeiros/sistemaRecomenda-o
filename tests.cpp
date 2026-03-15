@@ -9,7 +9,7 @@ typedef struct {
     std::string data[50];
     std::string code[50];
     std::string codeProduto[50];
-    std::string produto[60];
+    std::string produto[50];
     
 } Clientes;
 
