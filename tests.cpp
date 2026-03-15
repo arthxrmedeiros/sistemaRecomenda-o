@@ -82,11 +82,15 @@ int main(){
     }
 
     for(int i = 0; i < clientes.size(); i++) {
+        printf("Cliente %d: Data: %s, CodeProduto: %d, Code: %s, Produto: %s\n", i + 1,
             clientes[i].data,
             clientes[i].codeProduto,
             clientes[i].code,
-            clientes[i].produto;
+            clientes[i].produto);
     }
+
+    fclose(arquivo);
+    return 0;
 
 }
 
