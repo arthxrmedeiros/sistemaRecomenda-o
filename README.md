@@ -1,6 +1,12 @@
 <h1>Sistema de Recomendação</h1>    
 Este projeto tem como objetivo implementar um sistema de recomendação de produtos para clientes de lojas de varejo, desenvolvido como parte da disciplina de Programação Estruturada.
 
+## Contexto do projeto 
+Sistemas de recomendação são ferramentas essenciais no cenário atual do comércio eletrônico,
+auxiliando clientes a descobrir produtos que possam ser de seu interesse e, consequentemente,
+aumentando as vendas e a satisfação do consumidor. Eles funcionam analisando o
+comportamento de compra e as preferências dos usuários para sugerir itens relevantes.
+
 ## 💯 Funcionalidades
 
 * **Leitura Eficiente de Dados:** Processamento rápido de arquivos CSV contendo o histórico de vendas e interações de clientes.
@@ -20,9 +26,12 @@ struct Venda {
 
 ## 2. O Motor de Recomendação
 
-A base da recomendação utiliza conceitos de álgebra linear para mapear o perfil de compras. O sistema modela os clientes e os produto como vetores dentro de um espaço vetorial.
+A base da recomendação utiliza conceitos de álgebra linear para mapear o perfil de compras.
+O sistema modela os clientes e os produto como vetores dentro de um espaço vetorial.
 
-Para cruzar os clusters de produtos com os perfis dos clientes, o algoritmo aplica matrizes de transformação linear (projetando os dados da base alfa para a base beta, garantindo a direção correta da transformação) para encontrar a menor distância e sugerir o produto mais adequado.
+Para cruzar os clusters de produtos com os perfis dos clientes, o algoritmo aplica matrizes de transformação linear (método da vizinhança)
+para encontrar a menor distância e sugerir o produto mais adequado, uma entrada na matriz indica se um cliente comprou um
+determinado produto. A partir desta matriz, calculamos a similaridade entre clientes.
 
 ## 📂 Estrutura de Diretórios
 **Plaintext**
