@@ -37,7 +37,7 @@ determinado produto. A partir desta matriz, calculamos a similaridade entre clie
 **Plaintext**
 
 ```
-recomendacao-eletronicos/
+sistemaRecomenda-o/
 ├── src/                 # Código-fonte principal (.cpp, .h)
 │   ├── main.cpp         # Ponto de entrada e leitura dinâmica do CSV
 │   └── recomendacao.cpp # Lógica de cálculo vetorial e matrizes
@@ -82,5 +82,5 @@ g++ src/main.cpp -o bin/recomendacao -std=c++11
    - [ ] Exportar a lista de recomendações gerada para um arquivo .txt ou .csv de saída.
 
 ## Participantes
-+ Arthur Medeiros do NAscimento
++ Arthur Medeiros do Nascimento
 + João Rafael Gadelha
