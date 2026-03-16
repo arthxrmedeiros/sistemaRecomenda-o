@@ -1,69 +1,36 @@
 #include "lista_compra.h"
 #include <iostream>
-#include <set> // Estrutura que armazena apenas valores únicos e ordenados
 
 int main() {
 
-    ListaCompra lc; // Instância da sua classe/struct que gerencia os dados
+    ListaCompra lc;
 
-    // Chama a função para carregar os dados do arquivo CSV para a memória
     lerCSV(lc, "dados_venda_cluster_0.csv");
 
-    std::string codProduto;
+    std::string codCliente;
 
-    // Exibe a quantidade total de produtos que foram mapeados/carregados
-    std::cout << "Produtos carregados: " 
-          << lc.produtos.size() 
-          << std::endl;
-
-    // Loop infinito de busca (interação com o usuário)
     while (true) {
 
-        std::cout << "Digite o codigo do produto (-1 para sair): ";
-        std::cin >> codProduto;
+        std::cout << "\nDigite o codigo do cliente (-1 para sair): ";
+        std::cin >> codCliente;
 
-        // Condição de parada do programa
-        if (codProduto == "-1") {
+        if (codCliente == "-1") {
             break;
         }
 
-        // Verifica se o código digitado existe no mapa de índices (mapeamento ID -> Posição)
-        if (!lc.indice_produto.count(codProduto)) {
-            std::cout << "Produto nao encontrado.\n";
-            continue; // Volta para o início do while
+        // verifica se cliente existe
+        if (!lc.indice_cliente.count(codCliente)) {
+            std::cout << "Cliente nao encontrado.\n";
+            continue;
         }
 
-        // Recupera o índice numérico (ID interno) do produto a partir do código string
-        int idx_produto = lc.indice_produto[codProduto];
+        int idx_cliente = lc.indice_cliente[codCliente];
 
-        // O 'set' é usado aqui para garantir que cada cliente seja contado apenas uma vez,
-        // mesmo que ele tenha comprado o mesmo produto em várias ocasiões diferentes.
-        std::set<int> clientes_unicos;
+        std::cout << "Produtos comprados:\n";
 
-        // Percorre a lista de compras (provavelmente um vector de vectors ou listas)
-        for (int i = 0; i < lc.compras.size(); i++) {
+        for (int idx_produto : lc.compras[idx_cliente]) {
 
-            // Para cada compra (i), percorre os produtos contidos nela (p)
-            for (int p : lc.compras[i]) {
-
-                // Se o produto da compra for o mesmo que estamos buscando:
-                if (p == idx_produto) {
-                    clientes_unicos.insert(i); // Adiciona o ID do cliente ao set
-                }
-
-            }
-        }
-
-        // Verifica a regra de negócio: o produto precisa ter sido comprado por 3 ou mais pessoas
-        if (clientes_unicos.size() >= 3) {
-
-            std::cout << "Produto: "
-                      << lc.produtos[idx_produto] // Exibe o nome/descrição do produto
-                      << std::endl;
-
-        } else {
-
-            std::cout << "Menos de 3 clientes compraram esse produto.\n";
+            std::cout << "- " << lc.produtos[idx_produto] << std::endl;
 
         }
 
