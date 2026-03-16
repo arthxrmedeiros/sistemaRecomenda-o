@@ -5,20 +5,29 @@
 #include <map>
 #include <string>
 
+// Estrutura principal que agrupa todas as informações da base de dados
 struct ListaCompra {
-    // Vetor com os códigos originais dos clientes [cite: 106]
+    
+    // Armazena os IDs/Códigos originais dos clientes (ex: "CPF" ou "ID_123")
+    // O índice do vetor representa o ID interno do cliente no sistema
     std::vector<std::string> clientes;
+
+    // Mapa para busca rápida: converte o código (string) no índice (int) do vetor acima
+    // Evita ter que percorrer todo o vetor 'clientes' para achar alguém
     std::map<std::string, int> indice_cliente;
 
-    // Vetor com os NOMES dos produtos [cite: 108]
+    // Armazena as descrições ou nomes dos produtos (ex: "Arroz 5kg")
     std::vector<std::string> produtos;
-    // Mapa: Código do Produto -> Índice Interno [cite: 109]
+
+    // Mapa para busca rápida: converte o código do produto (string) no seu índice interno
     std::map<std::string, int> indice_produto;
 
-    // Vetor onde cada posição (cliente) tem sua lista de IDs de produtos [cite: 110]
+    // Matriz de compras (vetor de vetores):
+    // A posição compras[0] contém um vetor com todos os IDs de produtos que o cliente 0 comprou
     std::vector<std::vector<int>> compras;
 };
 
+// Declaração da função que você vai implementar para ler o arquivo e preencher a struct
 void lerCSV(ListaCompra &lc, std::string arquivo);
 
 #endif
