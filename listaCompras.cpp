@@ -33,7 +33,7 @@ int main(){
     }
 
     std::cout << "Leitura de dados do arquivo: \n";
-    fscanf(arquivo, "%*s,%*s,%*s\n");
+    fscanf(arquivo, "%*s,%*s,%*s\n"); // cabeçalho, ignorar a primeira linha
 
     while (fscanf(arquivo, "%49[^,],%d, %49[^\n]",
         code,
