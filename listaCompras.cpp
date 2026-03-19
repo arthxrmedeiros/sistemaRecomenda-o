@@ -1,6 +1,6 @@
 #include "lista_compra.h"
 
-void gerarListaCompras(char caminho[], vector<string>& codeClientes, map<string, int>& clienteIndex, vector<string>& codeProdutos, map<int, int>& produtoIndex, vector<string>& compras) {
+void gerarListaCompras(vector<string>& codeClientes, map<string, int>& clienteIndex, vector<string>& codeProdutos, map<int, int>& produtoIndex, vector<string>& listaCompras) {
     FILE *arquivo;
     arquivo = fopen("dados_venda_cluster_0.csv", "r");
 
@@ -25,7 +25,7 @@ void gerarListaCompras(char caminho[], vector<string>& codeClientes, map<string,
             } else {
                 clienteIndex[cliente.codeCliente] = clienteIndex[ultimoCliente] + 1;
             }
-            compras.push_back(vector<int>());
+            listaCompras.push_back(vector<int>());
         }
         strcpy(ultimoCliente, cliente.codeCliente);
 
@@ -37,14 +37,14 @@ void gerarListaCompras(char caminho[], vector<string>& codeClientes, map<string,
             }else{
                 produtoIndex[cliente.codeProduto] = produtoIndex[ultimoProduto] = 1
             }
-            compras.push_back(vector<int>();)
+            listaCompras.push_back(vector<int>();)
         }
         ultimoProduto = cliente.codeProduto;
 
         int indexCliente = clienteIndex[cliente.codeCliente];
         int indexProduto = produtoIndex[cliente.codeProduto];
     
-        compras[indexCliente].push_back(indexProduto);
+        listaCompras[indexCliente].push_back(indexProduto);
     }
 
     fclose(arquivo);
