@@ -26,16 +26,16 @@ vector<vector<int>> gerarMatrizIntersecao(vector<vector<int>>& matrizCompras, in
     return MatrizIntersecao;
 };
 
-vector<vector<float>> gerarMatrizSimilaridade(vector<vector<int>>& matrizIntersecao, int numClientes) {
+vector<vector<float>> gerarMatrizSimilaridade(vector<vector<int>>& MatrizIntersecao, int numClientes) {
     vector<vector<float>> MatrizSimilaridade(numClientes, vector<float>(numClientes, 0.0));
 
     for(int i = 0; i < numClientes; i++){
         for(int j = 0; j < numClientes; j++){
-            int valorIntersecao = matrizIntersecao[i][j];
+            int valorIntersecao = MatrizIntersecao[i][j];
             int totalComprasCliente = 0;
 
             for(int k = 0; k < matrizIntersecao[i].size(); k++){
-                totalComprasCliente += matrizIntersecao[i][k];
+                totalComprasCliente += MatrizIntersecao[i][k];
             }
 
             MatrizSimilaridade[i][j] = 1.0 - ((float)valorIntersecao / (float)totalComprasCliente);
