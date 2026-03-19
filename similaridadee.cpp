@@ -34,7 +34,7 @@ vector<vector<float>> gerarMatrizSimilaridade(vector<vector<int>>& MatrizInterse
             int valorIntersecao = MatrizIntersecao[i][j];
             int totalComprasCliente = 0;
 
-            for(int k = 0; k < matrizIntersecao[i].size(); k++){
+            for(int k = 0; k < MatrizIntersecao[i].size(); k++){
                 totalComprasCliente += MatrizIntersecao[i][k];
             }
 
