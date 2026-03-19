@@ -1,61 +1,51 @@
-#include <vector>
-#include <string>
-#include <map>
-#include <stdio.h>
-#include <stdlib.h>
+#include "lista_compra.h"
 
-using namespace std;
-
-typedef struct {
-    int data[50];
-    char code[50];
-    int codeProduto[50];
-    char produto[50];
-} Clientes;
-
-int main(){
-
-    vector<string> codes;
-    vector<string> codeProdutos;
-    vector<string> produtos;
-    map<string, int> codeIndex;
-
+void gerarListaCompras(char caminho[], vector<string>& codeClientes, map<string, int>& clienteIndex, vector<string>& codeProdutos, map<int, int>& produtoIndex, vector<string>& compras) {
     FILE *arquivo;
-
     arquivo = fopen("dados_venda_cluster_0.csv", "r");
+
+    Clientes cliente;
+    char ultimoCliente[9];
+    int ultimoProduto = 0;
+
     if (arquivo == NULL) {
         perror("Erro ao abrir o arquivo!");
         return 1;
     }
-
     printf("Leitura de dados do arquivo: \n");
-    
-    // Ignorar a primeira linha (cabeçalho)
-    fscanf(arquivo, "%*[^\n]\n"); 
 
-    // Variáveis temporárias para armazenar os dados lidos do arquivo
-    char tempCode[50];
-    char tempCodeProduto[50]; 
-    char tempProduto[50];
-
-   
-    while (fscanf(arquivo, "%49[^,],%49[^,],%49[^\n]\n", tempCode, tempCodeProduto, tempProduto) == 3) {
+    fscanf(arquivo, "%*[^\n]\n");
+    while (fscanf(arquivo, "%d, %8[^,], %d, %49[^\n]\n", &cliente.dataCrompa, cliente.codeCliente, &cliente.codeProduto, cliente.produtoNome) == 4) {
         
-        // Índice baseado em 1 (para exibição)
-        int index = (int)codes.size() + 1;
+        codeClientes.push_back(cliente.codeCliente);
 
-        codes.push_back(tempCode);
-        codeProdutos.push_back(tempCodeProduto);
-        produtos.push_back(tempProduto);
+        if (clienteIndex.find(cliente.codeCliente) == clienteIndex.end()) {
+            if (clienteIndex.empty()) {
+                clienteIndex[cliente.codeCliente] = 0;
+            } else {
+                clienteIndex[cliente.codeCliente] = clienteIndex[ultimoCliente] + 1;
+            }
+            compras.push_back(vector<int>());
+        }
+        strcpy(ultimoCliente, cliente.codeCliente);
 
-        // Guardar o índice do código no mapa
-        codeIndex[tempCode] = index;
-        codeIndex[tempCodeProduto] = index;
+        codeProdutos.push_back(cliente.codeProduto);
 
-        printf("Index: %d, Code: %s, CodeProduto: %s, Produto: %s\n", 
-               index, tempCode, tempCodeProduto, tempProduto);
+        if(produtoIndex.find(cliente.codeProduto) == produtoIndex.end()){
+            if(produtoIndex.empty()){
+                produtoIndex[cliente.codeProduto] = 0;
+            }else{
+                produtoIndex[cliente.codeProduto] = produtoIndex[ultimoProduto] = 1
+            }
+            compras.push_back(vector<int>();)
+        }
+        ultimoProduto = cliente.codeProduto;
+
+        int indexCliente = clienteIndex[cliente.codeCliente];
+        int indexProduto = produtoIndex[cliente.codeProduto];
+    
+        compras[indexCliente].push_back(indexProduto);
     }
 
     fclose(arquivo);
-    return 0;
 }
