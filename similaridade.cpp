@@ -62,7 +62,7 @@ std::vector<std::vector<float>> gerarMatrizSimilaridade(
             int uniao = totalI + totalJ - intersecao;
 
             if (uniao != 0) {
-                matrizSimilaridade[i][j] = (float)intersecao / (float)uniao;
+                matrizSimilaridade[i][j] = 1.0 - ((float)intersecao / (float)uniao);
             } else {
                 matrizSimilaridade[i][j] = 0.0;
             }
