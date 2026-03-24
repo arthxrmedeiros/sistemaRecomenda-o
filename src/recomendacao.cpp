@@ -24,8 +24,8 @@ vector<vector<float>> vetorRanking(vector<vector<float>>& similaridade, vector<s
                 ranking[j] += ranking[j] * similaridade[clienteIndex][indiceVizinho];
             }
         }
-        return ranking;
     }
+    return ranking;
 }
 
 bool compararPorScore(const ItemRanking &a, const ItemRanking &b) {
