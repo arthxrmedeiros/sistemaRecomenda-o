@@ -5,16 +5,13 @@
 void gerarListaCompras(ListaCompra &lc) {
 
     FILE *arquivo = fopen("dados_venda_cluster_0.csv", "r");
-
-    int data;
-    char codigoCliente[9];
-    int codigoProduto;
-    char nomeProduto[50];
-
+    
+    ListaCompras lc;
+    
     fscanf(arquivo, "%*[^\n]\n");
 
     while (fscanf(arquivo, "%d,%8[^,],%d,%49[^\n]\n",
-                  &data, codigoCliente, &codigoProduto, nomeProduto) == 4) {
+                  &lc.data, codigoCliente, &lc.codigoProduto, nomeProduto) == 4) {
 
         std::string clienteStr = codigoCliente;
         std::string produtoStr = nomeProduto;
