@@ -7,7 +7,7 @@ auxiliando clientes a descobrir produtos que possam ser de seu interesse e, cons
 aumentando as vendas e a satisfação do consumidor. Eles funcionam analisando o
 comportamento de compra e as preferências dos usuários para sugerir itens relevantes.
 
-## 💯 Funcionalidades
+##  Funcionalidades
 
 * **Leitura Eficiente de Dados:** Processamento rápido de arquivos CSV contendo o histórico de vendas e interações de clientes.
 * **Estruturação de Dados em C++:** Utilização de estruturas de dados dinâmicas (`std::vector`, `std::string`) para gerenciamento seguro e otimizado da memória.
@@ -38,10 +38,17 @@ determinado produto. A partir desta matriz, calculamos a similaridade entre clie
 
 ```
 sistemaRecomenda-o/
-├── src/                 # Código-fonte principal (.cpp, .h)
-│   ├── main.cpp         # Ponto de entrada e leitura dinâmica do CSV
-│   └── recomendacao.cpp # Lógica de cálculo vetorial e matrizes
-├── data/                # Diretório para os arquivos CSV (ex: dados_venda_cluster_0.csv)
+├── src/                 # Código-fonte principal (.cpp)
+│   ├── main.cpp     
+|   └── lista_compra.cpp 
+|   └── similaridade.cpp
+│   └── recomendacao.cpp 
+├── include/
+|   └── lista_compra.h
+|   └── similaridade.h
+|   └── recomendacao.h
+├── data/               # Diretório para os arquivos CSV (ex: dados_venda_cluster_0.csv)
+|   └── dados_venda_cluster_0
 └── README.md            # Documentação principal
 ```
 
@@ -71,16 +78,4 @@ g++ src/main.cpp -o bin/recomendacao -std=c++11
 ./bin/recomendacao
 ```
 
-## 📈 Próximos Passos 
 
-   - [x] Otimizar o script de leitura do CSV de C puro para C++
-
-   - [ ] Construir a matriz de transformação linear de alfa para beta para os clusters.
-
-   - [ ] Implementar o cálculo final de similaridade e ranqueamento de aparelhos.
-
-   - [ ] Exportar a lista de recomendações gerada para um arquivo .txt ou .csv de saída.
-
-## Participantes
-+ Arthur Medeiros do Nascimento
-+ João Rafael Gadelha
