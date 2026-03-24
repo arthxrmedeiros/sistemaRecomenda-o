@@ -47,7 +47,6 @@ int main() {
     printf("\nEscolha o tipo de algoritmo:\n");
     printf("1 - Padrao\n");
     printf("2 - Otimizado\n");
-    printf("Opcao: ");
     scanf("%d", &opcao);
 
     bool usarOtimizado;
@@ -66,34 +65,6 @@ int main() {
     // 🔴 versão normal
     inicio = clock();
 
-    auto simNormal = gerarMatrizSimilaridade(
-        matrizCompras,
-        numClientes,
-        numProdutos,
-        false
-    );
-
-    fim = clock();
-    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
-
-    printf("\nTempo (normal): %.5f segundos\n", tempo);
-
-
-    // 🟢 versão otimizada
-    inicio = clock();
-
-    auto simOtimizada = gerarMatrizSimilaridade(
-        matrizCompras,
-        numClientes,
-        numProdutos,
-        true
-    );
-
-    fim = clock();
-    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
-
-    printf("Tempo (otimizado): %.5f segundos\n", tempo);
-
     std::vector<std::vector<float>> matrizSimilaridade =
     gerarMatrizSimilaridade(
         matrizCompras,
@@ -101,6 +72,11 @@ int main() {
         numProdutos,
         usarOtimizado
     );
+
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("\nTempo: %.5f segundos\n", tempo);
 
     int limite = 4;
 
@@ -114,7 +90,6 @@ int main() {
         }
         printf("\n");
     }
-
 
 
     int k = 3; 
@@ -150,7 +125,7 @@ int main() {
         int count = 0;
         int i = 0;
 
-        while (count < k && i < rankingOrdenado.size()) {
+        while (i < rankingOrdenado.size() && count < k) {
 
             int idxProduto = rankingOrdenado[i].index;
 
@@ -159,11 +134,11 @@ int main() {
                     lc.produtos[idxProduto].c_str(),
                     rankingOrdenado[i].score
                 );
-                count++;
+                count++; // 🔥 conta só os válidos
             }
 
             i++;
-        }
+}
     }
 
 
