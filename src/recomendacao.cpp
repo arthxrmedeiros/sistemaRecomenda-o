@@ -21,7 +21,7 @@ vector<vector<float>> vetorRanking(vector<vector<float>>& similaridade, vector<s
         for (int j = 0; j < numProdutos; j++) {
             int clienteComprou = compras[clienteIndex][j];
             if (compras[indiceVizinho][j] == 1 && compras[clienteIndex][j] == 0) {
-                ranking[j] *= similaridade[clienteIndex][indiceVizinho];
+                ranking[j] += ranking[j] * similaridade[clienteIndex][indiceVizinho];
             }
         }
         return ranking;
