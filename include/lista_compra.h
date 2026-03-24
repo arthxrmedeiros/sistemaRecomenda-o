@@ -5,17 +5,19 @@
 #include <map>
 #include <string>
 
-struct ListaCompra {
+typedef struct{
+    int data;
+    char codeCliente[9];
+    int codeProduto;
+    char produto[50];
+} ListaCompras;
 
-    std::vector<std::string> clientes;
-    std::map<std::string, int> indice_cliente;
+void gerarListaCompras(std::vector<std::string> clientes,
+    std::map<std::string, int> indice_cliente,
 
-    std::vector<std::string> produtos;
-    std::map<std::string, int> indice_produto;
+    std::vector<std::string> produtos,
+    std::map<std::string, int> indice_produto,
 
-    std::vector<std::vector<int>> compras;
-};
-
-void gerarListaCompras(ListaCompra &lc);
+    std::vector<std::vector<int>> compras);
 
 #endif
