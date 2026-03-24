@@ -35,12 +35,50 @@ std::vector<std::vector<int>> gerarMatrizIntersecao(
     return matrizIntersecao;
     }
 
+    std::vector<std::vector<int>> gerarMatrizIntersecaoOtimizada(
+        std::vector<std::vector<int>>& matrizCompras,
+        int numClientes,
+        int numProdutos
+    ) {
+        std::vector<std::vector<int>> matrizIntersecao(numClientes, std::vector<int>(numClientes, 0));
+
+        for (int i = 0; i < numClientes; i++) {
+            for (int j = i; j < numClientes; j++) { // 🔥 começa em i
+
+                int soma = 0;
+
+                for (int k = 0; k < numProdutos; k++) {
+                    soma += matrizCompras[i][k] * matrizCompras[j][k];
+                }
+
+                matrizIntersecao[i][j] = soma;
+                matrizIntersecao[j][i] = soma; // 🔥 simetria
+            }
+        }
+
+        return matrizIntersecao;
+    }    
+
+
 std::vector<std::vector<float>> gerarMatrizSimilaridade(
-    std::vector<std::vector<int>>& matrizIntersecao,
     std::vector<std::vector<int>>& matrizCompras,
     int numClientes,
-    int numProdutos
+    int numProdutos,
+    bool otimizado
 ) {
+
+    std::vector<std::vector<int>> matrizIntersecao;
+
+    if (otimizado) {
+        matrizIntersecao = gerarMatrizIntersecaoOtimizada(
+            matrizCompras, numClientes, numProdutos
+        );
+    } else {
+        matrizIntersecao = gerarMatrizIntersecao(
+            matrizCompras, numClientes, numProdutos
+        );
+    }
+
     std::vector<std::vector<float>> matrizSimilaridade(numClientes, std::vector<float>(numClientes, 0.0));
 
     for (int i = 0; i < numClientes; i++) {
@@ -58,7 +96,6 @@ std::vector<std::vector<float>> gerarMatrizSimilaridade(
             }
 
             int intersecao = matrizIntersecao[i][j];
-
             int uniao = totalI + totalJ - intersecao;
 
             if (uniao != 0) {

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctime>
 #include "lista_compra.h"
 #include "similaridade.h"
+#include "recomendacao.h"
 
 int main() {
 
@@ -40,11 +42,65 @@ int main() {
     std::vector<std::vector<int>> matrizCompras =
         gerarMatrizCompras(lc.compras, numClientes, numProdutos);
 
-    std::vector<std::vector<int>> matrizIntersecao =
-        gerarMatrizIntersecao(matrizCompras, numClientes, numProdutos);
+    int opcao;
+
+    printf("\nEscolha o tipo de algoritmo:\n");
+    printf("1 - Padrao\n");
+    printf("2 - Otimizado\n");
+    printf("Opcao: ");
+    scanf("%d", &opcao);
+
+    bool usarOtimizado;
+
+    if (opcao == 2) {
+        usarOtimizado = true;
+    } else {
+        usarOtimizado = false;
+    }
+
+
+
+    clock_t inicio, fim;
+    double tempo;
+
+    // 🔴 versão normal
+    inicio = clock();
+
+    auto simNormal = gerarMatrizSimilaridade(
+        matrizCompras,
+        numClientes,
+        numProdutos,
+        false
+    );
+
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("\nTempo (normal): %.5f segundos\n", tempo);
+
+
+    // 🟢 versão otimizada
+    inicio = clock();
+
+    auto simOtimizada = gerarMatrizSimilaridade(
+        matrizCompras,
+        numClientes,
+        numProdutos,
+        true
+    );
+
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("Tempo (otimizado): %.5f segundos\n", tempo);
 
     std::vector<std::vector<float>> matrizSimilaridade =
-        gerarMatrizSimilaridade(matrizIntersecao, matrizCompras, numClientes, numProdutos);
+    gerarMatrizSimilaridade(
+        matrizCompras,
+        numClientes,
+        numProdutos,
+        usarOtimizado
+    );
 
     int limite = 4;
 
@@ -58,6 +114,58 @@ int main() {
         }
         printf("\n");
     }
+
+
+
+    int k = 3; 
+
+    for (int t = 0; t < 3; t++) {
+
+        printf("\nDigite o codigo do cliente para recomendacao: ");
+        scanf("%s", codigo);
+
+        std::string codigoStr = codigo;
+        int idxCliente = lc.indice_cliente[codigoStr];
+
+        std::vector<std::string> vizinhos = vetorVizinhos(
+            matrizSimilaridade,
+            lc.clientes,
+            idxCliente
+        );
+
+        vector<float> ranking = vetorRanking(
+            matrizSimilaridade,
+            vizinhos,
+            matrizCompras,
+            lc.indice_cliente,
+            idxCliente,
+            numProdutos
+        );
+        
+        std::vector<ItemRanking> rankingOrdenado =
+            ordenarVetorRankeamento(ranking);
+
+        printf("%s\n", codigo);
+
+        int count = 0;
+        int i = 0;
+
+        while (count < k && i < rankingOrdenado.size()) {
+
+            int idxProduto = rankingOrdenado[i].index;
+
+            if (rankingOrdenado[i].score > 0) {
+                printf("%s (score: %.2f)\n",
+                    lc.produtos[idxProduto].c_str(),
+                    rankingOrdenado[i].score
+                );
+                count++;
+            }
+
+            i++;
+        }
+    }
+
 
     return 0;
 
