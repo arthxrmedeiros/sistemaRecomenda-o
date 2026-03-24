@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-void gerarListaCompras(ListaCompra &lc) {
+void gerarListaCompras(std::vector<std::string> clientes,
+    std::map<std::string, int> indice_cliente,std::vector<std::string> produtos,
+    std::map<std::string, int> indice_produto,std::vector<std::vector<int>> compras) {
 
     FILE *arquivo = fopen("dados_venda_cluster_0.csv", "r");
     
