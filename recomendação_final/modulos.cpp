@@ -140,7 +140,7 @@ vector<float> vetorRanking(
         for (int j = 0; j < numProdutos; j++) {
 
             if (compras[idxVizinho][j] == 1 && compras[clienteIndex][j] == 0) {
-                ranking[j] += ranking[j] * similaridade[clienteIndex][idxVizinho];
+                ranking[j] += similaridade[clienteIndex][idxVizinho];
             }
         }
     }
@@ -148,7 +148,7 @@ vector<float> vetorRanking(
 }
 
 bool compararPorScore(const ItemRanking &a, const ItemRanking &b) {
-    return a.score > b.score; }
+    return a.score < b.score; }
 
 vector<ItemRanking> ordenarVetorRankeamento(vector<float> &ranking) {
     vector<ItemRanking> vetorOrdenado;
