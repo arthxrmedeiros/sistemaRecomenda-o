@@ -136,12 +136,11 @@ vector<float> vetorRanking(
     for (int i = 0; i < vizinhos.size(); i++) {
 
         int idxVizinho = mapaClientes[vizinhos[i]];
-        float sim = similaridade[clienteIndex][idxVizinho];
 
         for (int j = 0; j < numProdutos; j++) {
 
             if (compras[idxVizinho][j] == 1 && compras[clienteIndex][j] == 0) {
-                ranking[j] += sim;
+                ranking[j] += ranking[j] * similaridade[clienteIndex][idxVizinho];
             }
         }
     }
